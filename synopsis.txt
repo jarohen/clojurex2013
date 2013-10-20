@@ -1,0 +1,7 @@
+ClojureScript: Putting the Blocks Together
+
+This talk will be a whistlestop tour of how Clojure's younger brother
+can really change the way you write code for a browser. We'll cover
+getting up and running, I'll be sharing my experiences of
+ClojureScript thus far (including the awesomeness that is core.async)
+and apply all of the above to write a simple browser-based game.
