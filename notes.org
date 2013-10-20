@@ -1,0 +1,42 @@
+* ClojureX 2013
+** Introduction - me
+*** Slides
+**** Me
+**** Likely
+**** Points to note
+***** Links wiki
+***** Shameless plugging
+**** Outline
+***** Setting up a CLJS project
+***** All Mod Cons
+****** Getting to the same toolset that we take for granted in Clojure
+****** Starting a REPL
+****** REPL development
+***** Experiences and UI Patterns
+****** A number of patterns that I have found useful
+******* Patterns themselves not new, demonstrating application in CLJS
+******* UI dataflow patterns
+******* core.async + watching atoms
+******* If time, WebSockets
+** Introduction - CLJS project
+*** Slides
+**** What do we need for a CLJS project?
+***** Web server (ring/http-kit)
+****** Serving page frame and compiled JS
+***** nREPL
+****** To make changes to running application
+***** lein-cljsbuild
+****** To recompile CLJS when the files change
+**** Lein template - 'SPLAT' - to kick us off 
+*** Demo
+**** `lein new splat clojurex-demo`
+**** `lein dev`
+**** -> project.clj
+***** Splitting of source paths
+***** :cljsbuild config
+***** Aliases
+**** -> handler.clj
+***** Page frame - single [:div :#content]
+***** Serve JS file
+**** -> home.cljs
+***** Put a 'Hello world' string on the page
