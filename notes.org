@@ -108,3 +108,15 @@
 **** # Rendering tetraminos through the REPL
 ***** *compile*
 ***** REPL exec
+** Experiences and UI Patterns
+*** Slides (to come)
+**** Widgets (state -> channel)
+*** Demo - getting shape to move based on state
+**** # Skeleton of 'make-widget!'
+***** *refresh*
+***** -> board_widget.cljs
+***** Reset atom from REPL, watch log in browser
+***** Similar pattern for single-page hash bind
+**** # Rendering shapes when model atom changed in REPL
+***** *refresh*
+***** REPL exec comment (repeat)
