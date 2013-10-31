@@ -1,5 +1,5 @@
 * ClojureX 2013
-** Introduction - me
+** Introduction - Me/Talk
 *** Slides
 **** Me
 **** Likely
@@ -18,6 +18,8 @@
 ******* UI dataflow patterns
 ******* core.async + watching atoms
 ******* If time, WebSockets
+***** Putting the Blocks Together
+****** Tetris clone!
 ** Introduction - CLJS project
 *** Slides
 **** What do we need for a CLJS project?
@@ -40,3 +42,69 @@
 ***** Serve JS file
 **** -> home.cljs
 ***** Put a 'Hello world' string on the page
+** All Mod Cons - REPL
+*** Slides
+**** How it works
+***** nREPL middleware opens another HTTP route
+***** (loop []
+****** Browser told to request an HTTP route
+****** Response contains JS to execute
+****** Browser sends result in next request, waits for next command
+****** (recur))
+**** Requirements
+***** nREPL middleware to cope with CLJS
+***** Browser JS snippet to connect to REPL
+***** Start CLJS REPL
+**** Good ol' Frodo.
+*** Demo
+**** -> clojurex-demo-config.edn
+***** Request :cljs-repl? true from Frodo
+**** -> handler.clj
+***** Browser JS snippet
+**** -> REPL
+***** (frodo/cljs-repl) + put to browser desktop
+***** Refresh browser
+***** (+ 4 4)
+***** (js/alert "Hello world!")
+***** (js/console.log "Hello world!")
+***** /document -body (setAttribute "style" "background:green"))
+*** Demo - Grid renderer
+**** # Rendering a canvas
+***** -> home.cljs
+***** *refresh*
+**** # Creating 'render-grid!'
+***** -> home.cljs - doto
+***** -> grid.cljs
+****** (def $test-canvas) so that we can REPL test
+***** *refresh*
+***** -> REPL
+******   (.getContext $test-canvas "2d")
+      (getContext "2d")
+      (drawLine 60 20 40 20))
+****** (.. $test-canvas
+  (getContext "2d")
+  (fillRect 20 20 20 20))
+**** # Grid REPL code
+***** REPL exec inside comment
+**** # Moving grid REPL code into 'render-grid!'
+***** *refresh*
+***** Show grid rendering on refresh
+*** Demo - Render tetraminos
+**** # Tetraminos skeleton
+***** -> tetraminos.cljs
+****** Again, def
+****** *refresh*
+**** # Initial attempt at rendering a cell
+***** REPL exec cell
+**** # Rendering multiple cells
+***** REPL exec cells
+***** Bug - overdrawing grid
+**** # 'Fixing the bug'
+***** REPL exec cells
+**** # Creating 'color-cell!' fn
+**** # Creating 'color-cells!' fn
+**** # Tetraminos skeleton
+***** -> tetraminos.cljs
+**** # Rendering tetraminos through the REPL
+***** *compile*
+***** REPL exec
