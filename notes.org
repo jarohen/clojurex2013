@@ -75,7 +75,7 @@
 **** # Creating 'render-grid!'
 ***** -> home.cljs - doto
 ***** -> grid.cljs
-****** (def $test-canvas) so that we can REPL test
+****** (def $test-canvas) so that we can REPL test without needing access to global variables
 ***** *refresh*
 ***** -> REPL
 ******   (.getContext $test-canvas "2d")
@@ -108,15 +108,90 @@
 **** # Rendering tetraminos through the REPL
 ***** *compile*
 ***** REPL exec
-** Experiences and UI Patterns
+** Experiences and UI Patterns - Widgets
 *** Slides (to come)
 **** Widgets (state -> channel)
 *** Demo - getting shape to move based on state
-**** # Skeleton of 'make-widget!'
-***** *refresh*
+**** # Skeleton of 'make-board-widget'
+***** -> home.cljs
+****** Moved canvas functionality out
 ***** -> board_widget.cljs
+***** *refresh*
 ***** Reset atom from REPL, watch log in browser
 ***** Similar pattern for single-page hash bind
 **** # Rendering shapes when model atom changed in REPL
 ***** *refresh*
 ***** REPL exec comment (repeat)
+*** Demo - putting keyboard events on channel
+**** # Passing the board widget a command channel that logs to console
+***** -> home.cljs
+****** Creating a command channel, that logs events to console
+****** Passing it through to the board widget
+***** -> board_widget.cljs
+****** 'def'ing command channel to test
+***** *refresh*
+***** REPL exec (a/put! test-command-ch "Hello ClojureX!")
+**** # Putting keypresses on the channel
+***** *refresh*
+***** Keypresses on canvas should put events on JS console
+** Experiences and UI Patterns - Model
+*** Demo - Block moving down screen
+**** # Creating a game-model ns
+***** *refresh*
+***** -> home.cljs
+****** wiring in the model
+***** -> game_model.cljs
+****** blank file at the moment.
+**** # Got a starting piece
+***** Just manipulating vanilla Clojure data structures - could test in a normal REPL
+***** *refresh*
+**** # Piece moves down screen (and falls off the bottom)
+***** Ticker channel uses core.async timeout primitive
+*** Demo - movement 
+**** # Responding to movement commands
+***** Again, only Clojure data structures, REPL testable!
+***** *refresh*
+***** Demo left/right/rotate, test hitting edge
+*** 'Here's one I made earlier
+**** # Placing cells when they collide
+***** Quick demo, not going to walk through code
+***** *refresh*
+**** # Implementing 'down'
+**** # Clearing rows
+**** # Game over condition
+**** # Game pausing
+**** # Adding 'keys' reference
+**** # Focussing the canvas (slight hack!)
+**** *refresh*
+**** Show changes
+*** Demo - cleared rows
+**** # Adding in a 'cleared rows' widget
+***** *refresh*
+***** -> home.cljs
+****** Adding in 'cleared-rows-widget'
+***** -> cleared_rows_widget
+****** Show watch on atom.
+** Experiences and UI Patterns - Bindings
+*** Slides (to plan)
+*** Demo - Multiplayer widget
+**** # Skeleton of a multiplayer 'section'
+***** -> multiplayer.cljs
+***** Splitting out sections of the page -> local reasoning 
+***** -> multiplayer_widget.cljs
+**** # Implemented static widget
+***** 
+**** # Binding to the join button
+**** # Putting a join event on the channel
+**** # Binding the top-scores list
+**** # Binding the form's visibility
+** Experiences and UI Patterns - WebSockets
+*** Demo - websocket echo server
+**** # Adding chord dep
+***** *RESTART LEIN DEV*
+***** Reconnect to REPL, but stay in Clojure
+**** # Websocket echo server
+***** *recompile multiplayer.clj and handler.clj*
+***** Copied from Chord README
+**** # Making websockets work
+***** *recompile multiplayer.clj*
+***** *refresh*
