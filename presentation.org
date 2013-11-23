@@ -1,0 +1,37 @@
+#+Title: Putting the Blocks Together
+#+Author: James Henderson - Likely
+#+Email: james@jarohen.me.uk
+
+#+REVEAL_THEME: night
+#+REVEAL_EXTRA_CSS: css/docco.css
+#+OPTIONS: num:nil toc:nil reveal_history:t
+#+REVEAL_TRANS: fade
+
+* What to expect?
+
+- Setting up a CLJS project
+- "All Mod Cons"
+- Experiences and UI Patterns
+- Putting the Blocks Together!
+
+* What do we need for a CLJS project?
+
+- Web server (ring/http-kit)
+  - Serving page frame and compiled JS
+- nREPL
+  - Make changes to the running web-app
+- lein-cljsbuild
+  - Re-compiles CLJS when the files change
+
+* All Mod Cons - REPL
+
+How does a CLJS REPL work?
+
+#+BEGIN_SRC clojure
+(loop []
+  ;; Browser told to request an HTTP route
+  ;; Response contains JS to execute
+  ;; Browser sends result in next request, waits for next command
+  (recur))
+#+END_SRC  
+
