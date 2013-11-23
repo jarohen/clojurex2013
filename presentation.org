@@ -104,3 +104,18 @@ Must split out requires into ':require' and ':require-macros'
 * 
 # DEMO - REPL
 
+* Experiences and UI Patterns
+
+/*Caveats*/
+
+None of the theory behind these patterns is new! 
+
+I'll be showing how I've applied some existing UI development best
+practices in ClojureScript
+
+These are patterns that I've found myself settling into after having
+implemented a variety of different webapps
+
+ClojureScript is still (relatively) new and I'm very much still
+learning - any advice/feedback gratefully received!
+
