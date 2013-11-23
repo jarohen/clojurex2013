@@ -1,3 +1,7 @@
 .reveal p {
     margin-top: 1em;
 }
+
+.reveal pre {
+    font-size: 0.75em;
+}
