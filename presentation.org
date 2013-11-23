@@ -9,10 +9,13 @@
 
 * What to expect?
 
-- Setting up a CLJS project
-- "All Mod Cons"
-- Experiences and UI Patterns
-- Putting the Blocks Together!
+*Setting up a CLJS project*
+
+*All Mod Cons*
+
+*Experiences and UI Patterns*
+
+*Putting the Blocks Together!*
 
 * 
 :PROPERTIES:
