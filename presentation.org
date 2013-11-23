@@ -4,7 +4,7 @@
 
 #+REVEAL_THEME: night
 #+REVEAL_EXTRA_CSS: css/main.css
-#+OPTIONS: num:nil toc:nil reveal_history:t reveal_control:nil reveal_center:nil
+#+OPTIONS: num:nil toc:nil reveal_history:t reveal_center:nil
 #+REVEAL_TRANS: fade
 
 * What to expect?
@@ -50,6 +50,9 @@ lein dev
 #+ATTR_REVEAL: :frag roll-in
 We need this for most CLJS projects, hence the template!
 
+* 
+# DEMO - Hello world in ClojureScript
+
 * All Mod Cons - REPL
 
 How does a CLJS REPL work?
@@ -70,4 +73,34 @@ How does a CLJS REPL work?
 
 #+ATTR_REVEAL: :frag roll-in
 Again, we need this for most CLJS projects, so 'lein-frodo' plugin will set these up.
+
+* Main Differences from Clojure
+
+Function invocation
+
+#+begin_src clojure
+(.log js/console "Hello world!")
+(js/console.log "Hello world!")
+#+end_src
+
+Field access
+
+#+begin_src clojure
+(.-body js/document)
+(set! (.-hash js/location) "#/")
+#+end_src
+
+No Refs/Agents/STM
+
+Must split out requires into ':require' and ':require-macros'
+
+#+begin_src clojure
+(ns your.namespace
+  (:require [cljs.core.async :as a])
+  (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
+#+end_src
+  
+
+* 
+# DEMO - REPL
 
