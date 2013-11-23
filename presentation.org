@@ -3,8 +3,8 @@
 #+Email: james@jarohen.me.uk
 
 #+REVEAL_THEME: night
-#+REVEAL_EXTRA_CSS: css/docco.css
-#+OPTIONS: num:nil toc:nil reveal_history:t
+#+REVEAL_EXTRA_CSS: css/main.css
+#+OPTIONS: num:nil toc:nil reveal_history:t reveal_control:nil reveal_center:nil
 #+REVEAL_TRANS: fade
 
 * What to expect?
@@ -14,14 +14,41 @@
 - Experiences and UI Patterns
 - Putting the Blocks Together!
 
+* 
+:PROPERTIES:
+:reveal_background: ./img/cat.jpeg
+:reveal_background_trans: slide
+:END:
+
 * What do we need for a CLJS project?
 
 - Web server (ring/http-kit)
   - Serving page frame and compiled JS
+
+#+ATTR_REVEAL: :frag roll-in
 - nREPL
   - Make changes to the running web-app
+
+#+ATTR_REVEAL: :frag roll-in
 - lein-cljsbuild
   - Re-compiles CLJS when the files change
+
+* SPLAT - A Lein template
+
+#+begin_src sh
+lein new splat <your-project>
+cd <your-project>
+lein dev
+#+end_src
+
+- [[http://http-kit.org][http-kit]] web server
+- Basic handlers
+- 'Hello world from ClojureScript'
+- CLJ/CLJS REPL (provided by [[https://github.com/cemerick/austin][Austin]] + [[https://github.com/james-henderson/lein-frodo][lein-frodo]])
+- `lein dev` alias for cljsbuild auto-compilation + web server
+
+#+ATTR_REVEAL: :frag roll-in
+We need this for most CLJS projects, hence the template!
 
 * All Mod Cons - REPL
 
@@ -33,5 +60,14 @@ How does a CLJS REPL work?
   ;; Response contains JS to execute
   ;; Browser sends result in next request, waits for next command
   (recur))
-#+END_SRC  
+#+END_SRC 
+
+* So, we need:
+
+- Some nREPL middleware to provide the CLJS REPL
+- A JS snippet in page-frame to connect to the CLJS REPL
+- To start the CLJS REPL
+
+#+ATTR_REVEAL: :frag roll-in
+Again, we need this for most CLJS projects, so 'lein-frodo' plugin will set these up.
 
