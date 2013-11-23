@@ -122,3 +122,49 @@ implemented a variety of different webapps
 ClojureScript is still (relatively) new and I'm very much still
 learning - any advice/feedback gratefully received!
 
+* Of Widgets and Models
+
+# Diagram of widgets + models
+
+** An example widget
+
+#+begin_src clojure
+(defn make-board-widget [!model command-ch]
+  (def !test-model !model)
+  (def test-command-ch command-ch)
+
+  ;; returns a wired-up DOM element that can 
+  ;; be added to the page
+
+  (doto (canvas-node)
+    (watch-model! !model)
+    (listen-for-keypresses! command-ch)))
+#+end_src
+
+** An example model
+
+#+begin_src clojure
+(defn wire-up-model! [!model command-ch]
+  (def !test-model !model)
+  (def test-command-ch command-ch)
+
+  (doto !test-model
+    (reset! (new-game))
+    (repeatedly-tick!)
+    (apply-commands! command-ch)))
+#+end_src
+
+** Wiring them up:
+
+#+begin_src clojure
+(set! (.-onload js/document)
+  (fn []
+    (let [!model (atom {})
+          command-ch (a/chan)]
+
+      (d/replace-contents! (sel1 :#content)
+        (node (make-board-widget !model command-ch)))
+
+      (wire-up-model! !model command-ch))))
+#+end_src
+
