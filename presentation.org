@@ -128,12 +128,6 @@ implemented a variety of different webapps
 ClojureScript is still (relatively) new and I'm very much still
 learning - any advice/feedback gratefully received!
 
-** Patterns
-
-- Widgets + Models
-- Widget binding: decoupling appearance from behaviour
-- Chord: Servers that look like any other channels
-
 * Of Widgets and Models
 
 #+BEGIN_HTML
@@ -349,9 +343,16 @@ core.async and WebSockets:
 
 * Wrapping up
 
-- Tetris is deployed (at least throughout ClojureX) at http://tetris.jarohen.me.uk
-- Slides/references for this talk are at 
+Tetris is deployed (at least throughout ClojureX) at 
+
+http://tetris.jarohen.me.uk
+
+Slides/references for this talk are at 
+
 https://github.com/james-henderson/clojurex2013/blob/master/talk-notes.org
+
+#+ATTR_REVEAL: :frag roll-in
+Happy to take any questions!
 
 ** 
 #+BEGIN_HTML
@@ -370,6 +371,3 @@ https://github.com/james-henderson/clojurex2013/blob/master/talk-notes.org
     
     <div style="clear:both" />
 #+END_HTML
-
-#+ATTR_REVEAL: :frag roll-in
-Happy to take any questions!
