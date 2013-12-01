@@ -339,6 +339,33 @@ core.async and WebSockets:
      (close! ws-conn)))
 #+END_SRC
 
+** Applying to our model:
+
+We already accept channels of UI events - 
+
+Channels of server events is easy :)
+
+#+BEGIN_SRC clojure
+  
+  (defn send-scores! [ws-conn !game-model]
+    (add-watch !game-model ::top-scores
+               (fn [_ _ {old-score :score} {new-score :score}]
+                 (when (not= old-score new-score)
+                   (a/put! ws-conn {:score new-score})))))
+  
+  (defn update-top-scores! [ws-conn !top-scores]
+    (go-loop []
+      (when-let [scores (<! ws-conn)]
+        (reset! !top-scores scores)
+        (recur))))
+
+  (defn wire-up-multiplayer! [!game-model !top-scores]
+    (doto (<! (ws-ch "ws://localhost:3000/scores"))
+      (send-scores! !game-model)
+      (update-top-scores! !top-scores)))
+  
+#+END_SRC
+
 ** 
 
 * Wrapping up
