@@ -300,3 +300,76 @@ Covering the full potential of =core.async= is a talk in itself!
 #+end_src
 
 ** 
+
+* Server-client communication - WebSockets
+
+=core.async= channels seem to be the ideal abstraction over
+JavaScript's raw WebSockets
+
+*Chord* is a library for bringing together Clojure/ClojureScript,
+core.async and WebSockets:
+
+
+#+BEGIN_SRC clojure
+  ;; Clojure:
+  (require '[clojure.core.async :refer [<! >! go-loop]])
+  (require '[chord.http-kit :refer [with-channel]])
+    
+  (defn your-handler [req]
+    (with-channel req web-socket-ch
+      (go-loop []
+        (when-let [{:keys [message]} (<! web-socket-ch)]
+          (println "Received message:" message)
+          (>! web-socket-ch (format "You said: '%s'" message))
+          (recur)))))
+#+END_SRC
+** Server-client communication - WebSockets
+
+=core.async= channels seem to be the ideal abstraction over
+JavaScript's raw WebSockets
+
+*Chord* is a library for bringing together Clojure/ClojureScript,
+core.async and WebSockets:
+
+
+#+BEGIN_SRC clojure
+  ;; ClojureScript:
+  (:require [cljs.core.async :refer [<! >! close!]]
+            [chord.client :refer [ws-ch]])
+  (:require-macros [cljs.core.async.macros :refer [go]])
+  
+  (go
+   (let [ws-conn (<! (ws-ch "ws://localhost:3000/socket"))]
+     (>! "Hello server from client!")
+     (js/console.log "From server:" (:message (<! ws-conn)))
+     (close! ws-conn)))
+#+END_SRC
+
+** 
+
+* Wrapping up
+
+- Tetris is deployed (at least throughout ClojureX) at http://tetris.jarohen.me.uk
+- Slides/references for this talk are at 
+https://github.com/james-henderson/clojurex2013/blob/master/talk-notes.org
+
+** 
+#+BEGIN_HTML
+    <div style="float:left;">
+      <br />
+      <h3>James Henderson</h3>
+      <h4>Likely</h4>
+      <p><a href="https://twitter.com/jarohen"><strong>@jarohen</strong></a></p>
+      <p><a href="https://github.com/james-henderson"><strong>github/james-henderson</strong></a></p>
+    </div>
+    
+    <div style="float:right;">
+      <p>Slides/references:</p>
+      <img src="img/qrcode.png" style="height: 15em; width: 15em" />
+    </div>
+    
+    <div style="clear:both" />
+#+END_HTML
+
+#+ATTR_REVEAL: :frag roll-in
+Happy to take any questions!
