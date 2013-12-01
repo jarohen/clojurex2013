@@ -143,29 +143,58 @@ learning - any advice/feedback gratefully received!
 ** An example widget
 
 #+begin_src clojure
-(defn make-board-widget [!model command-ch]
-  (def !test-model !model)
-  (def test-command-ch command-ch)
-
-  ;; returns a wired-up DOM element that can 
-  ;; be added to the page
-
-  (doto (canvas-node)
-    (watch-model! !model)
-    (listen-for-keypresses! command-ch)))
+  (defprotocol GameBoardComponent
+    (board->node [_])
+    (color-cells! [_ cells color])
+    (event-ch [_]))
+  
+  (defn make-canvas-component []
+    (reify GameBoardComponent
+      (board->node [] ...)
+      (color-cells! [_ cells color] ...)
+      (event-ch [_] ...)))
+  
+  (defn watch-model! [game-board !model] ...)
+  (defn listen-for-keypresses! [game-board command-ch] ...)
+  
+  (defn make-board-widget [!model command-ch]
+    (let [game-board (doto (make-canvas-component)
+                       (watch-model! !model)
+                       (listen-for-keypresses! command-ch))]
+  
+      ;; returns a wired-up DOM element that can 
+      ;; be added to the page
+      (board->node game-board)))
 #+end_src
 
 ** An example model
 
 #+begin_src clojure
-(defn wire-up-model! [!model command-ch]
-  (def !test-model !model)
-  (def test-command-ch command-ch)
-
-  (doto !test-model
-    (reset! (new-game))
-    (repeatedly-tick!)
-    (apply-commands! command-ch)))
+  (defn apply-tick [old-model]
+    ;; tick logic goes here
+    new-model)
+  
+  (defn repeatedly-tick! [!model]
+    ;; every x milliseconds:
+    (swap! !model apply-tick))
+  
+  
+  (defmulti apply-command (fn [old-model command] command))
+  
+  (defmethod apply-command :piece-left [old-model _]
+    ;; command logic goes here
+    new-model)
+  
+  (defn apply-commands! [!model command-ch]
+    (go-loop []
+      (when-let [command (<! command-ch)]
+        (swap! model apply-command command))))
+  
+  
+  (defn wire-up-model! [!model command-ch]
+    (doto !model
+      (repeatedly-tick!)
+      (apply-commands! command-ch)))
 #+end_src
 
 ** Wiring them up:
@@ -182,4 +211,3 @@ learning - any advice/feedback gratefully received!
       (wire-up-model! !model command-ch))))
 #+end_src
 
-* Binding - splitting appearance and behaviour
