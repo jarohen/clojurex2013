@@ -140,6 +140,51 @@ learning - any advice/feedback gratefully received!
 <img src="img/widgets-models.svg" />
 #+END_HTML
 
+** core.async
+
+*core.async* is a new library for Clojure and ClojureScript to
+facilitate asynchronous communication while still coding in a
+synchronous manner
+
+The main abstraction is channels:
+
+#+BEGIN_SRC clojure
+  (require '[clojure.core.async :as a])
+  
+  (let [my-ch (a/chan)]
+    (a/put! my-ch "Hello!"))
+#+END_SRC
+
+*** core.async - 'go' and 'go-loop'
+
+The '=go=' macro translates synchonous code into asynchronous code:
+
+#+BEGIN_SRC clojure
+  (require '[clojure.core.async :as a :refer [<! >! go]])
+  
+  (let [my-ch (a/chan)]
+    (go
+     (let [msg (<! my-ch)]
+       (println "Received message:" (pr-str msg))))
+  
+    (go
+     (>! my-ch "Hello other go-block!")
+     (println "Message sent and acknowledged")))
+  
+  ;; =>
+  ;; Received message: "Hello other go-block!"
+  ;; Message sent and acknowledged
+  
+  (let [my-ch (a/chan)]
+    (go-loop []
+      (when-let [msg (<! my-ch)]
+        (println "Received message:" (pr-str msg))
+        (recur))))
+#+END_SRC
+
+#+ATTR_REVEAL: :frag roll-in
+Covering the full potential of =core.async= is a talk in itself!
+
 ** An example widget
 
 #+begin_src clojure
@@ -153,7 +198,7 @@ learning - any advice/feedback gratefully received!
       (board->node [] ...)
       (color-cells! [_ cells color] ...)
       (event-ch [_] ...)))
-  
+
   (defn watch-model! [game-board !model] ...)
   (defn listen-for-keypresses! [game-board command-ch] ...)
   
@@ -162,8 +207,33 @@ learning - any advice/feedback gratefully received!
                        (watch-model! !model)
                        (listen-for-keypresses! command-ch))]
   
-      ;; returns a wired-up DOM element that can 
-      ;; be added to the page
+      (board->node game-board)))
+#+end_src
+
+** An example widget
+
+#+begin_src clojure
+  (defprotocol GameBoardComponent
+    (board->node [_])
+    (color-cells! [_ cells color])
+    (event-ch [_]))
+  
+  (defn make-canvas-component [] ...)
+  
+  (defn watch-model! [game-board !model]
+    (add-watch! !model ::game-board
+                (fn [_ _ old-model new-model]
+                  ;; update DOM component
+                  )))
+  
+  (defn listen-for-keypresses! [game-board command-ch]
+    (a/pipe (event-ch game-board) command-ch))
+  
+  (defn make-board-widget [!model command-ch]
+    (let [game-board (doto (make-canvas-component)
+                       (watch-model! !model)
+                       (listen-for-keypresses! command-ch))]
+      
       (board->node game-board)))
 #+end_src
 
@@ -175,9 +245,23 @@ learning - any advice/feedback gratefully received!
     new-model)
   
   (defn repeatedly-tick! [!model]
-    ;; every x milliseconds:
-    (swap! !model apply-tick))
+    (go-loop []
+      (<! (a/timeout 1000))
+      (swap! !model apply-tick)
+      (recur)))
   
+  (defn apply-commands! [!model command-ch] ...)
+  
+  (defn wire-up-model! [!model command-ch]
+    (doto !model
+      (repeatedly-tick!)
+      (apply-commands! command-ch)))
+#+end_src
+
+** An example model
+
+#+begin_src clojure
+  (defn repeatedly-tick! [!model] ...)
   
   (defmulti apply-command (fn [old-model command] command))
   
@@ -185,11 +269,15 @@ learning - any advice/feedback gratefully received!
     ;; command logic goes here
     new-model)
   
+  (defmethod apply-command :piece-right [old-model _]
+    ;; command logic goes here
+    new-model)
+  
   (defn apply-commands! [!model command-ch]
     (go-loop []
       (when-let [command (<! command-ch)]
-        (swap! model apply-command command))))
-  
+        (swap! model apply-command command)
+        (recur))))
   
   (defn wire-up-model! [!model command-ch]
     (doto !model
@@ -211,3 +299,4 @@ learning - any advice/feedback gratefully received!
       (wire-up-model! !model command-ch))))
 #+end_src
 
+** 
