@@ -78,9 +78,10 @@
 ****** (def $test-canvas) so that we can REPL test without needing access to global variables
 ***** *refresh*
 ***** -> REPL
-******   (.getContext $test-canvas "2d")
-      (getContext "2d")
-      (drawLine 60 20 40 20))
+****** (doto (.getContext $test-canvas "2d")
+  (.moveTo 40 20)
+  (.lineTo 200 400)
+  (.stroke))
 ****** (.. $test-canvas
   (getContext "2d")
   (fillRect 20 20 20 20))
