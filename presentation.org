@@ -53,37 +53,10 @@ lein dev
 #+ATTR_REVEAL: :frag roll-in
 We need this for most CLJS projects, hence the template!
 
-** 
-# DEMO - Hello world in ClojureScript
 
-* All Mod Cons
+** Main Differences from Clojure
 
-*Getting to the same toolset and development practices that we take for granted in Clojure*
-
-** All Mod Cons - REPL
-
-How does a CLJS REPL work?
-
-#+BEGIN_SRC clojure
-(loop []
-  ;; Browser told to request an HTTP route
-  ;; Response contains JS to execute
-  ;; Browser sends result in next request, waits for next command
-  (recur))
-#+END_SRC 
-
-*** So, we need:
-
-- Some nREPL middleware to provide the CLJS REPL
-- A JS snippet in page-frame to connect to the CLJS REPL
-- To start the CLJS REPL
-
-#+ATTR_REVEAL: :frag roll-in
-Again, we need this for most CLJS projects, so 'lein-frodo' plugin will set these up.
-
-*** Main Differences from Clojure
-
-Function invocation
+Interop function invocation
 
 #+begin_src clojure
 (.log js/console "Hello world!")
@@ -107,6 +80,35 @@ Must split out requires into ':require' and ':require-macros'
   (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
 #+end_src
   
+
+
+** 
+# DEMO - Hello world in ClojureScript
+
+* All Mod Cons
+
+*Getting to the same toolset and development practices that we take for granted in Clojure*
+
+** All Mod Cons - REPL
+
+How does a CLJS REPL work?
+
+#+BEGIN_SRC clojure
+  (loop []
+    ;; Browser told to request an HTTP route
+    ;; Response contains JS to execute
+    ;; Browser sends result in next request, waits for next command
+    (recur))
+#+END_SRC 
+
+*** So, we need:
+
+- Some nREPL middleware to provide the CLJS REPL
+- A JS snippet in page-frame to connect to the CLJS REPL
+- To start the CLJS REPL
+
+#+ATTR_REVEAL: :frag roll-in
+Again, we need this for most CLJS projects, so 'lein-frodo' plugin will set these up.
 
 *** 
 # DEMO - REPL
