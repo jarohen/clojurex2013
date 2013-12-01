@@ -134,7 +134,9 @@ learning - any advice/feedback gratefully received!
 
 * Of Widgets and Models
 
-# Diagram of widgets + models
+#+BEGIN_HTML
+<img src="img/widgets-models.svg" />
+#+END_HTML
 
 ** An example widget
 
