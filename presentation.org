@@ -367,6 +367,11 @@ Channels of server events is easy :)
 #+END_SRC
 
 ** 
+#+BEGIN_HTML
+<img src="img/success-otfrom.png" style="height: 20em"/>
+#+END_HTML
+
+** 
 
 * Wrapping up
 
