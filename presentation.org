@@ -17,12 +17,6 @@
 
 *Putting the Blocks Together!*
 
-** 
-:PROPERTIES:
-:reveal_background: ./img/cat.jpeg
-:reveal_background_trans: slide
-:END:
-
 * Setting up a CLJS project
 
 - Web server (ring/http-kit)
