@@ -4,7 +4,7 @@
 The slides are written in 'org-reveal'
 (https://github.com/yjwen/org-reveal), backed by 'reveal.js'(http://lab.hakim.se/reveal-js/#/).
 
-Org file of slides is at https://github.com/james-henderson/clojurex2013/presentation.org
+Org file of slides is at https://github.com/james-henderson/clojurex2013/blob/master/presentation.org
 
 ** Tetris:
 
