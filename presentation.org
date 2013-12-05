@@ -44,7 +44,6 @@ lein dev
 - CLJ/CLJS REPL (provided by [[https://github.com/cemerick/austin][Austin]] + [[https://github.com/james-henderson/lein-frodo][lein-frodo]])
 - `lein dev` alias for cljsbuild auto-compilation + web server
 
-#+ATTR_REVEAL: :frag roll-in
 We need this for most CLJS projects, hence the template!
 
 
@@ -101,7 +100,6 @@ How does a CLJS REPL work?
 - A JS snippet in page-frame to connect to the CLJS REPL
 - To start the CLJS REPL
 
-#+ATTR_REVEAL: :frag roll-in
 Again, we need this for most CLJS projects, so 'lein-frodo' plugin will set these up.
 
 *** 
@@ -377,7 +375,6 @@ Slides/references for this talk are at
 
 https://github.com/james-henderson/clojurex2013/blob/master/talk-notes.org
 
-#+ATTR_REVEAL: :frag roll-in
 Happy to take any questions!
 
 ** 
