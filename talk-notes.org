@@ -1,0 +1,33 @@
+* ClojureScript - Putting the Blocks Together
+** Slides
+
+The slides are written in 'org-reveal'
+(https://github.com/yjwen/org-reveal), backed by 'reveal.js'(http://lab.hakim.se/reveal-js/#/).
+
+Org file of slides is at https://github.com/james-henderson/clojurex2013/presentation.org
+
+** Tetris:
+
+Tetris source code is at https://github.com/james-henderson/cljs-tetris.git
+
+** Libraries (in order of appearance): 
+
+- *SPLAT* lein template: =lein new splat *project-name*=
+- *lein-cljsbuild* for auto-compilation of CLJS files: https://github.com/emezeske/lein-cljsbuild
+- *http-kit* - a Ring-compatible HTTP server: http://http-kit.org/
+
+- *lein-frodo* for setting up nREPL and http-kit servers: https://github.com/james-henderson/lein-frodo.git
+- *Austin* for easy browser REPLs: https://github.com/cemerick/austin
+
+- *Dommy* for easy DOM manipulation: https://github.com/Prismatic/dommy
+- *core.async* - CSP in Clojure/CLJS: https://github.com/clojure/core.async
+- *Chord* for making WebSockets appear as core.async channels: https://github.com/james-henderson/chord
+
+If I've missed anything, please shout! (Or Google, it'll probably be quicker ;) )
+
+** Talk & associated documentation licence:
+
+Copyright © James Henderson 2013.
+
+Licensed under a CC-BY-SA
+(http://creativecommons.org/licenses/by-sa/3.0/) licence.
