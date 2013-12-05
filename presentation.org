@@ -168,7 +168,6 @@ The '=go=' macro translates synchonous code into asynchronous code:
         (recur))))
 #+END_SRC
 
-#+ATTR_REVEAL: :frag roll-in
 Covering the full potential of =core.async= is a talk in itself!
 
 ** An example widget
@@ -262,7 +261,7 @@ Covering the full potential of =core.async= is a talk in itself!
   (defn apply-commands! [!model command-ch]
     (go-loop []
       (when-let [command (<! command-ch)]
-        (swap! model apply-command command)
+        (swap! !model apply-command command)
         (recur))))
   
   (defn wire-up-model! [!model command-ch]
