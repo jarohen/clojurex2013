@@ -368,7 +368,7 @@ Channels of server events is easy :)
 
 Tetris is deployed (at least throughout ClojureX) at 
 
-http://tetris.jarohen.me.uk
+http://tetris.jarohen.me.uk:3556
 
 Slides/references for this talk are at 
 
